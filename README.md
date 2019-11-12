@@ -12,6 +12,8 @@
  Password: ansible
  
  User ansible has sudo permitions.
+ 
+ If you want to update user name(password) add additional build arg eg: --build-arg=USERNAME=some-username
 
 ## Key authentication 
  docker run --rm -d -p 22122:22 -v ~/.ssh/id_rsa.pub:/home/ansible/.ssh/authorized_keys ubuntu_ansible_pipeline
