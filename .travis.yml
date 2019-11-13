@@ -1,0 +1,15 @@
+language: minimal
+
+services:
+  - docker
+
+before_install:
+- sudo apt update -y && sudo apt install netcat
+- ssh-keygen -f id_rsa -t rsa -N ""
+- for img in centos:7 ubuntu ; do docker build --build-arg=OS_IMAGE=$img . -t ${img%%:*}_ansible_pipeline ; done
+- docker run --rm -d -p 22122:22 -v ${PWD}/id_rsa.pub:/home/ansible/.ssh/authorized_keys ubuntu_ansible_pipeline
+- docker run --rm -d -p 22123:22 -v ${PWD}/id_rsa.pub:/home/ansible/.ssh/authorized_keys centos_ansible_pipeline
+
+script:
+- netcat -zv 127.0.0.1 22122
+- netcat -zv 127.0.0.1 22123
