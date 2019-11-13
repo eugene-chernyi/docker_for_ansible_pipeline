@@ -4,7 +4,7 @@ services:
   - docker
 
 before_install:
-- sudo apt update -y && apt install nc
+- sudo apt update -y && sudo apt install nc
 - ssh-keygen -t rsa -N ""
 - for img in centos:7 ubuntu ; do docker build --build-arg=OS_IMAGE=$img . -t ${img%%:*}_ansible_pipeline ; done
 - docker run --rm -d -p 22122:22 -v ./id_rsa.pub:/home/ansible/.ssh/authorized_keys ubuntu_ansible_pipeline
