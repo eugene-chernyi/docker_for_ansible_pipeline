@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+echo "------ HOOK START - BUILD -------"
+printenv
+
+docker build --build-arg OS_IMAGE=$OS_IMAGE -t $IMAGE_NAME .
+
+echo "------ HOOK END - BUILD -------"
